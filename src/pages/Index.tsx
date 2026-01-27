@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroSlider from "@/components/HeroSlider";
-import ProductCard from "@/components/ProductCard";
-import AchieverCard from "@/components/AchieverCard";
+//import ProductCard from "@/components/ProductCard";
+//import AchieverCard from "@/components/AchieverCard";
 import CertificateCard from "@/components/CertificateCard";
 import { products } from "@/data/products";
 import { achievers } from "@/data/achievers";
@@ -63,9 +63,9 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredProducts.map((product) => (
+            {/* {featuredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
-            ))}
+            ))} */}
           </div>
 
           <div className="text-center mt-10">
@@ -118,9 +118,9 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
-            {topAchievers.map((achiever) => (
+            {/* {topAchievers.map((achiever) => (
               <AchieverCard key={achiever.id} achiever={achiever} />
-            ))}
+            ))} */}
           </div>
 
           <div className="text-center mt-10">
