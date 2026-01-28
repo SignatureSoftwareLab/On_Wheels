@@ -123,8 +123,8 @@
 //               <Leaf className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground" />
 //             </div>
 //             <div className="hidden sm:block">
-//               <span className="text-lg md:text-xl font-bold text-foreground">Fine</span>
-//               <span className="text-lg md:text-xl font-bold text-primary ml-1">Care</span>
+//               <span className="text-lg md:text-xl font-bold text-foreground">ON</span>
+//               <span className="text-lg md:text-xl font-bold text-primary ml-1">WHEELS</span>
 //             </div>
 //           </Link>
 
@@ -304,7 +304,7 @@
 
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Leaf, User, ShoppingCart } from "lucide-react";
+import { Menu, X, Leaf, User, ShoppingCart, CarTaxiFront } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 
@@ -336,12 +336,13 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
             <div className="w-10 h-10 md:w-12 md:h-12 gradient-primary rounded-xl flex items-center justify-center shadow-medium group-hover:shadow-glow transition-shadow">
-              <Leaf className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground" />
+              {/* CarTaxiFront - Leaf */}
+              <CarTaxiFront  className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground" />
               {/* <img src="/favicon.ico" alt="" className="w-5 h-5 md:w-6 md:h-6"/> */}
             </div>
             <div className="hidden sm:block">
-              <span className="text-lg md:text-xl font-bold text-foreground">Fine</span>
-              <span className="text-lg md:text-xl font-bold text-primary ml-1">Care</span>
+              <span className="text-lg md:text-xl font-bold text-foreground">ON</span>
+              <span className="text-lg md:text-xl font-bold text-primary ml-1">WHEELS</span>
             </div>
           </Link>
 

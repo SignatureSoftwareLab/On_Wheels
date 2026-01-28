@@ -114,7 +114,7 @@ function Requests() {
                               Search
                           </Button>
 
-                          <Button variant="destructive">
+                          <Button variant="destructive" className="hover:bg-red-100 hover:text-red-700">
                               Reset
                           </Button>
                       </div>

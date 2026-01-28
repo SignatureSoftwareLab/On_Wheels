@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeOff, Mail, Lock, User, Phone, Leaf, MapPin } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User, Phone, Leaf, MapPin, CarTaxiFront } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -51,7 +51,7 @@ const Register = () => {
       localStorage.setItem("isLoggedIn", "true");
       toast({
         title: "Registration Successful",
-        description: "Welcome to FineCare India! Your account has been created.",
+        description: "Welcome to On Wheels! Your account has been created.",
       });
       navigate("/");
       setIsLoading(false);
@@ -64,10 +64,10 @@ const Register = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center justify-center gap-2 mb-6">
           <div className="w-12 h-12 gradient-primary rounded-xl flex items-center justify-center shadow-medium">
-            <Leaf className="w-6 h-6 text-primary-foreground" />
+            <CarTaxiFront className="w-6 h-6 text-primary-foreground" />
           </div>
-          <span className="text-2xl font-bold text-foreground">Fine</span>
-          <span className="text-2xl font-bold text-primary">Care</span>
+          <span className="text-2xl font-bold text-foreground">On</span>
+          <span className="text-2xl font-bold text-primary">Wheels</span>
         </Link>
 
         <Card className="shadow-elevated border-border">

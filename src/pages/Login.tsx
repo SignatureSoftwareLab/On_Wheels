@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
-import { Eye, EyeOff, Mail, Lock, Leaf } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, Leaf, CarTaxiFront } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,7 +29,7 @@ const Login = () => {
       localStorage.setItem("isLoggedIn", "true");
       toast({
         title: "Login Successful",
-        description: "Welcome back to FineCare India!",
+        description: "Welcome back to ON WHEELS!",
       });
 
       // Handle redirect after login
@@ -53,10 +53,10 @@ const Login = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center justify-center gap-2 mb-8">
           <div className="w-12 h-12 gradient-primary rounded-xl flex items-center justify-center shadow-medium">
-            <Leaf className="w-6 h-6 text-primary-foreground" />
+            <CarTaxiFront className="w-6 h-6 text-primary-foreground" />
           </div>
-          <span className="text-2xl font-bold text-foreground">Fine</span>
-          <span className="text-2xl font-bold text-primary">Care</span>
+          <span className="text-2xl font-bold text-foreground ">On</span>
+          <span className="text-2xl font-bold text-primary ">Wheels</span>
         </Link>
 
         <Card className="shadow-elevated border-border">
@@ -105,11 +105,7 @@ const Login = () => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-sm">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" className="rounded border-border" />
-                  <span className="text-muted-foreground">Remember me</span>
-                </label>
+              <div className="flex items-center justify-end text-sm">
                 <Link to="#" className="text-primary hover:underline">
                   Forgot password?
                 </Link>

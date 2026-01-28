@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Package, Users, Shield, Award } from "lucide-react";
+import { ArrowRight, Package, Users, Shield, Award, PenToolIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -27,7 +27,7 @@ const Index = () => {
         <div className="container">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {[
-              { icon: Package, title: "Premium Products", desc: "100% natural, quality tested" },
+              { icon: PenToolIcon, title: "Services", desc: "Quick access to digital services and service providers." },
               { icon: Users, title: "Growing Community", desc: "50,000+ happy customers" },
               { icon: Shield, title: "Fully Compliant", desc: "GST registered, legal business" },
               { icon: Award, title: "Trusted Brand", desc: "ISO certified operations" },
@@ -52,7 +52,7 @@ const Index = () => {
         <div className="container">
           <div className="text-center mb-10 md:mb-12">
             <span className="inline-block text-sm font-semibold text-primary bg-secondary px-4 py-1.5 rounded-full mb-4">
-              Our Products
+              Our Services
             </span>
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
               Premium Health & Wellness Products
@@ -70,8 +70,8 @@ const Index = () => {
 
           <div className="text-center mt-10">
             <Button asChild variant="outline" size="lg" className="gap-2">
-              <Link to="/products">
-                View All Products
+              <Link to="/services">
+                View All Services
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </Button>
@@ -138,21 +138,21 @@ const Index = () => {
       <section className="py-16 md:py-20 gradient-primary">
         <div className="container text-center">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary-foreground mb-4">
-            Ready to Start Your Wellness Journey?
+            Ready to Start Your Journey?
           </h2>
           <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8">
-            Join our community of health-conscious individuals and explore premium products backed by trust and quality.
+            Join our community as a digital partner for individuals and businesses focusing on bridging technology gaps and providing easy access to online services.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild variant="gold" size="xl">
               <Link to="/register">Join Now</Link>
             </Button>
             <Button asChild variant="hero-outline" size="xl">
-              <Link to="/products">Explore Products</Link>
+              <Link to="/services">Explore Services</Link>
             </Button>
           </div>
           <p className="text-xs text-primary-foreground/60 mt-6">
-            * Individual results may vary. Success depends on effort and market conditions.
+            * Geared toward individuals needing quick access to digital services and service providers. 
           </p>
         </div>
       </section>
