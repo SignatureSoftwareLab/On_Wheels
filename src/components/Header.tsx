@@ -368,7 +368,7 @@ const Header = () => {
 
           {/* Desktop Actions */}
           <div className="hidden lg:flex items-center gap-3">
-            <Button asChild variant="ghost" size="sm">
+            {/* <Button asChild variant="ghost" size="sm">
               <Link to="/login" className="flex items-center gap-2">
                 <User className="w-4 h-4" />
                 Login
@@ -376,7 +376,7 @@ const Header = () => {
             </Button>
             <Button asChild size="sm">
               <Link to="/register">Register</Link>
-            </Button>
+            </Button> */}
           </div>
 
           {/* Mobile Menu Button */}
@@ -407,14 +407,16 @@ const Header = () => {
                   {link.name}
                 </Link>
               ))}
-              <div className="flex gap-2 mt-2 px-4">
+
+              {/* <div className="flex gap-2 mt-2 px-4">
                 <Button asChild variant="outline" size="sm" className="flex-1">
                   <Link to="/login" onClick={() => setIsMenuOpen(false)}>Login</Link>
                 </Button>
                 <Button asChild size="sm" className="flex-1">
                   <Link to="/register" onClick={() => setIsMenuOpen(false)}>Register</Link>
                 </Button>
-              </div>
+              </div> */}
+
             </div>
           </div>
         )}

@@ -47,7 +47,7 @@ const Footer = () => {
                 { name: "Services", href: "/services" },
                 { name: "Quick Links", href: "/quick-links" },
                 { name: "About Us", href: "#about" },
-                { name: "Business Opportunity", href: "/register" },
+                
               ].map((link) => (
                 <li key={link.name}>
                   <Link

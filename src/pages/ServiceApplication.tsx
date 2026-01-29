@@ -21,7 +21,7 @@ type DocumentType = {
 
 const DOCUMENT_TYPES: DocumentType[] = [
   { id: 'id_proof', name: 'Identity Proof', description: 'Aadhar Card, PAN Card, Voter ID, Passport', required: true },
-  { id: 'address_proof', name: 'Address Proof', description: 'Utility Bill, Rental Agreement, Bank Statement', required: true },
+  //{ id: 'address_proof', name: 'Address Proof', description: 'Utility Bill, Rental Agreement, Bank Statement', required: true },
   { id: 'photo', name: 'Passport Size Photo', description: 'Recent photograph with white background', required: true },
   { id: 'signature', name: 'Signature', description: 'Scanned signature on white paper', required: true },
   { id: 'additional', name: 'Additional Documents', description: 'Any other supporting documents', required: false },
@@ -61,7 +61,7 @@ function ServiceApplication() {
 
   const [uploadedDocuments, setUploadedDocuments] = useState<Record<string, File | null>>({
     id_proof: null,
-    address_proof: null,
+    //address_proof: null,
     photo: null,
     signature: null,
     additional: null,
@@ -112,7 +112,7 @@ function ServiceApplication() {
     })
     setUploadedDocuments({
       id_proof: null,
-      address_proof: null,
+      //address_proof: null,
       photo: null,
       signature: null,
       additional: null,
@@ -138,7 +138,6 @@ function ServiceApplication() {
     link.click()
     document.body.removeChild(link)
   }
-
 
 
 
@@ -191,7 +190,7 @@ function ServiceApplication() {
 
                         <div className="space-y-2">
                           <Label htmlFor="email" className="flex items-center gap-1 text-sm sm:text-base">
-                            Email <span className="text-red-500">*</span>
+                            Email 
                           </Label>
                           <div className="relative">
                             <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -203,7 +202,7 @@ function ServiceApplication() {
                               onChange={handleInputChange}
                               placeholder="example@email.com"
                               className="pl-10 text-sm sm:text-base"
-                              required
+                              
                             />
                           </div>
                         </div>

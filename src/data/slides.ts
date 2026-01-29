@@ -24,7 +24,7 @@ export const slides: Slide[] = [
     headline: "Transform Your Health, Transform Your Life",
     subtext: "Discover premium Ayurvedic products backed by science and tradition. Join thousands of satisfied customers across India.",
     image: heroBg1,
-    ctaPrimary: { text: "Join Now", href: "/register" },
+    ctaPrimary: { text: "Join Now", href: "/" },
     ctaSecondary: { text: "View Products", href: "/products" },
   },
   {
@@ -41,14 +41,14 @@ export const slides: Slide[] = [
     subtext: "From immunity boosters to personal care, we have products for every member of your family's health journey.",
     image: heroBg3,
     ctaPrimary: { text: "Explore Products", href: "/products" },
-    ctaSecondary: { text: "Join Us", href: "/register" },
+    ctaSecondary: { text: "Join Us", href: "/" },
   },
   {
     id: "slide-4",
     headline: "Build Your Business with Confidence",
     subtext: "Partner with a company that values transparency, compliance, and your success. Product-first approach with genuine opportunities.",
     image: heroBg4,
-    ctaPrimary: { text: "Become a Partner", href: "/register" },
+    ctaPrimary: { text: "Become a Partner", href: "/" },
     ctaSecondary: { text: "Our Achievers", href: "/achievers" },
   },
 ];

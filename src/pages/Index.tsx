@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import HeroSlider from "@/components/HeroSlider";
 //import ProductCard from "@/components/ProductCard";
 //import AchieverCard from "@/components/AchieverCard";
-import CertificateCard from "@/components/CertificateCard";
+//import CertificateCard from "@/components/CertificateCard";
 import { products } from "@/data/products";
 import { achievers } from "@/data/achievers";
 import { certificates } from "@/data/certificates";
@@ -50,25 +50,34 @@ const Index = () => {
       {/* Products Section */}
       <section className="py-16 md:py-20" id="products">
         <div className="container">
-          <div className="text-center mb-10 md:mb-12">
+          <div className="text-center">
             <span className="inline-block text-sm font-semibold text-primary bg-secondary px-4 py-1.5 rounded-full mb-4">
-              Our Services
+              Trust & Compliance
             </span>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Premium Health & Wellness Products
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Discover our range of Ayurvedic supplements and personal care products, crafted with natural ingredients for your wellbeing.
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))} */}
-          </div>
+          <section className="py-10 bg-muted/40">
+            <div className="container grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+              <div>
+                <h3 className="text-3xl font-bold text-primary">50+</h3>
+                <p className="text-muted-foreground">Active Branches</p>
+              </div>
+              <div>
+                <h3 className="text-3xl font-bold text-primary">10K+</h3>
+                <p className="text-muted-foreground">Services Completed</p>
+              </div>
+              <div>
+                <h3 className="text-3xl font-bold text-primary">5K+</h3>
+                <p className="text-muted-foreground">Happy Customers</p>
+              </div>
+              <div>
+                <h3 className="text-3xl font-bold text-primary">99.9%</h3>
+                <p className="text-muted-foreground">Uptime</p>
+              </div>
+            </div>
+          </section>
 
-          <div className="text-center mt-10">
+          <div className="text-center mt-5">
             <Button asChild variant="outline" size="lg" className="gap-2">
               <Link to="/services">
                 View All Services
@@ -95,41 +104,46 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            {certificates.map((certificate) => (
+            {/* {certificates.map((certificate) => (
               <CertificateCard key={certificate.id} certificate={certificate} />
-            ))}
+            ))} */}
           </div>
         </div>
       </section>
 
       {/* Achievers Section */}
-      <section className="py-16 md:py-20" id="achievers">
-        <div className="container">
-          <div className="text-center mb-10 md:mb-12">
-            <span className="inline-block text-sm font-semibold text-primary bg-secondary px-4 py-1.5 rounded-full mb-4">
-              Success Stories
-            </span>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Our Top Achievers
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Meet the dedicated individuals who have built successful businesses through hard work and commitment.
+      {/* How It Works */}
+      <section className="py-16 bg-muted/40">
+        <div className="container max-w-5xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold">How OnWheels Works</h2>
+            <p className="text-muted-foreground mt-2">
+              Simple workflow designed for service branches
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
-            {/* {topAchievers.map((achiever) => (
-              <AchieverCard key={achiever.id} achiever={achiever} />
-            ))} */}
-          </div>
-
-          <div className="text-center mt-10">
-            <Button asChild variant="outline" size="lg" className="gap-2">
-              <Link to="/achievers">
-                See All Achievers
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </Button>
+          <div className="grid md:grid-cols-3 gap-8 text-center">
+            <div>
+              <span className="text-primary text-4xl font-bold">01</span>
+              <h3 className="mt-3 font-semibold">Receive Request</h3>
+              <p className="text-muted-foreground text-sm mt-1">
+                Customers raise service requests online or at branch level.
+              </p>
+            </div>
+            <div>
+              <span className="text-primary text-4xl font-bold">02</span>
+              <h3 className="mt-3 font-semibold">Assign & Track</h3>
+              <p className="text-muted-foreground text-sm mt-1">
+                Assign technicians and track service progress live.
+              </p>
+            </div>
+            <div>
+              <span className="text-primary text-4xl font-bold">03</span>
+              <h3 className="mt-3 font-semibold">Complete & Notify</h3>
+              <p className="text-muted-foreground text-sm mt-1">
+                Service completed with instant customer notification.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -138,14 +152,15 @@ const Index = () => {
       <section className="py-16 md:py-20 gradient-primary">
         <div className="container text-center">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary-foreground mb-4">
-            Ready to Start Your Journey?
+            Ready to Simplify Your Service Operations?
           </h2>
           <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8">
-            Join our community as a digital partner for individuals and businesses focusing on bridging technology gaps and providing easy access to online services.
+            Join OnWheels and manage your branches, customers, and services from
+            one powerful dashboard.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild variant="gold" size="xl">
-              <Link to="/register">Join Now</Link>
+              <Link to="/">Start Using OnWheels</Link>
             </Button>
             <Button asChild variant="hero-outline" size="xl">
               <Link to="/services">Explore Services</Link>
