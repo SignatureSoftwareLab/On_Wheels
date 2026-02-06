@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, FileText, Home, ClipboardList, Shield, Wallet, Globe, Plane, Stamp } from "lucide-react";
+import { ArrowRight, Users, FileText, Home, ClipboardList, Shield, Wallet, Globe, Plane, Stamp, Icon } from "lucide-react";
 import { useState } from "react";
 import ServiceDetailsModal from "./ServiceDetailsModal";
 
@@ -11,11 +11,24 @@ import ServiceDetailsModal from "./ServiceDetailsModal";
 type ColorVariant = "blue" | "teal" | "amber";
 
 type Service = {
-    id: number;
-    category: string;
-    title: string;
+    id: string;
+    service_id: string;
     description: string;
-    dd?:string;
+    added_date: string;
+    status: string;
+    amount: string;
+    service_charge: string;
+    billno: string;
+    added_by: string;
+    parent_id: string;
+    processing_time: string;
+    validity_of_certificate: string;
+    processing_time_taken: string;
+    documents: string[];
+    service_name: string;
+    parent_name: string;
+    enc_id: string;
+
 }
 
 
@@ -78,7 +91,7 @@ export const ServiceCard = ({ service, colorVariant = "blue", }: ServiceCardProp
 
 
     const styles = colorStyles[colorVariant];
-    const Icon = getCategoryIcon(service.category);
+    //const Icon = getCategoryIcon(service.category);
 
 
     const onViewDetails = (service: Service) => {
@@ -99,14 +112,14 @@ export const ServiceCard = ({ service, colorVariant = "blue", }: ServiceCardProp
                     {/* Icon and Category */}
                     <div className="flex items-start gap-4">
                         <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${styles.bg}`}>
-                            <Icon className={`h-6 w-6 ${styles.icon}`} />
+                            <Globe className={`h-6 w-6 ${styles.icon}`} />
                         </div>
                         <div className="flex-1 min-w-0">
                             <span className={`text-xs font-semibold uppercase tracking-wider ${styles.icon}`}>
-                                {service.category}
+                                {service.parent_name}
                             </span>
                             <h3 className="mt-1 text-base font-bold text-foreground leading-tight">
-                                {service.title}
+                                {service.service_name}
                             </h3>
                         </div>
                     </div>

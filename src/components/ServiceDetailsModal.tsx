@@ -6,13 +6,25 @@ import { useNavigate } from 'react-router-dom';
 
 
 type Service = {
-    id: number;
-    category: string;
-    title: string;
+    id: string;
+    service_id: string;
     description: string;
-    dd?:string;
-}
+    added_date: string;
+    status: string;
+    amount: string;
+    service_charge: string;
+    billno: string;
+    added_by: string;
+    parent_id: string;
+    processing_time: string;
+    validity_of_certificate: string;
+    processing_time_taken: string;
+    documents: string[];
+    service_name: string;
+    parent_name: string;
+    enc_id: string;
 
+}
 
 type ServiceModalProps = {
     open: boolean;
@@ -45,7 +57,7 @@ function ServiceDetailsModal({ open, onClose, service }: ServiceModalProps) {
                     <div className="flex items-start justify-between gap-6">
                         <div>                           
                             <h2 className="mt-2 text-2xl font-bold text-primary">
-                                {service.title}
+                                {service.service_name}
                             </h2>
                         </div>
 
@@ -63,29 +75,29 @@ function ServiceDetailsModal({ open, onClose, service }: ServiceModalProps) {
                             {service.description}
                         </p>
 
-                        <p>{service.dd ? service.dd : ""}</p>
+                        <Button variant='secondary'>{service.status ? service.status : ""}</Button>
 
                         <div className="rounded-xl bg-muted/40 p-5 text-sm text-muted-foreground border grid md:grid-cols-2 gap-2">
                             <div className='px-2'>
                                 <p className="font-semibold text-foreground mb-3">
                                     Processing time <br />
-                                    <span className='font-semibold text-muted-foreground'>5 Days</span>
+                                    <span className='font-semibold text-muted-foreground'>{service?.processing_time} Days</span>
                                 </p>
     
                                 <p className="font-semibold text-foreground mb-3">
                                     Validity of certificate <br />
-                                    <span className='font-semibold text-muted-foreground'>3 YEAR</span>
+                                    <span className='font-semibold text-muted-foreground'>{service?.validity_of_certificate} YEAR</span>
                                 </p>
     
                                 <p className="font-semibold text-foreground mb-3">
                                     Fee Detail <br />
-                                    <span className='font-semibold text-muted-foreground'>Price : <span className='font-semibold text-primary'>₹ 40</span></span>
+                                    <span className='font-semibold text-muted-foreground'>Price : <span className='font-semibold text-primary'>₹ {service?.amount}</span></span>
                                 </p>
 
                                 <p className="font-semibold text-foreground mb-3">
                                     Processing Time Taken
                                     <br /> <span className='text-primary'>( Current year upto last month )</span> <br />
-                                    <span className='font-semibold text-muted-foreground'>Average time</span>
+                                    <span className='font-semibold text-muted-foreground'>Average time - {service?.processing_time_taken} Days</span>
                                 </p>
                             </div>
 
@@ -95,9 +107,17 @@ function ServiceDetailsModal({ open, onClose, service }: ServiceModalProps) {
                                     Required Documents
                                 </p>
                                 <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
-                                    <li>Identity Proof <span className='text-red-500'>*</span></li>
-                                    <li>Address Proof <span className='text-red-500'>*</span></li>
-                                    <li>Application Form <span className='text-red-500'>*</span></li>
+
+                                    {service?.documents?.length > 0 ? (
+                                        service?.documents?.map((doc, index) => (
+                                            <li key={index}> {doc}
+                                                <span className='ml-2 text-red-500'>*</span>
+                                            </li>
+                                        ))  )
+                                        : (
+                                            <p>{service?.documents}</p>
+                                        ) }
+                                    
                                     <li>Supporting Certificates (if any)</li>
                                 </ul>
                             </div>

@@ -11,6 +11,7 @@ import ServiceApplication from "./pages/ServiceApplication";
 import QuickLinks from "./pages/QuickLinks";
 import Requests from "./pages/Requests";
 import Reminder from "./pages/Reminder";
+import { UserProvider } from "./context/UserContext";
 
 
 const queryClient = new QueryClient();
@@ -21,36 +22,40 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-
-
-        <Routes>
-          <Route path="/" element={<Index />} /> 
-
-          <Route path="/services" element={<Services />} />
-
-          <Route path="/service/application/:serviceId" element={<ServiceApplication/>} />
-
-          <Route path="/quick-links" element={<QuickLinks/>} />
-
-          <Route path="/my-requests" element={<Requests/>} />
-
-          <Route path="/reminder" element={<Reminder/>} />
+        <UserProvider>
 
 
 
+          <Routes>
+            <Route path="/" element={<Index />} /> 
+  
+            <Route path="/services" element={<Services />} />
+  
+            <Route path="/service/application/:serviceId" element={<ServiceApplication/>} />
+  
+            <Route path="/quick-links" element={<QuickLinks/>} />
+  
+            <Route path="/my-requests" element={<Requests/>} />
+  
+            <Route path="/reminder" element={<Reminder/>} />
+  
+  
+  
+  
+  
+  
+            {/* <Route path="/login" element={<Login />} /> */}
+            {/* <Route path="/register" element={<Register />} /> */}
+  
+  
+  
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
 
 
 
-          {/* <Route path="/login" element={<Login />} /> */}
-          {/* <Route path="/register" element={<Register />} /> */}
-
-
-
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-
-
+        </UserProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
