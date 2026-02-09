@@ -14,13 +14,29 @@ import { Description } from '@radix-ui/react-toast'
 import { ChevronLeft, ChevronRight, Filter,  PlusCircleIcon, Search } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 
+
+type Reminder = {
+    id: string;
+    ack_no: string;
+    name: string;
+    email: string;
+    reminder_date: string;
+    description: string;
+    added_date: string;
+    branch_id: string;
+}
+
 function Reminder() {
 
-    const {username} = useUser();
+    const {username , ready } = useUser();
 
     const [reminderModalOpen, setReminderModalOpen] = useState(false);
 
     const [error, setError] = useState("")
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [entriesPerPage, setEntriesPerPage] = useState(5);
+
 
 
     const [reminderFormData, setReminderFormData] = useState({
@@ -33,15 +49,25 @@ function Reminder() {
 
 
     // state to store all reminder data
-    const [allReminder, setAllReminder] = useState([]);
+    const [allReminder, setAllReminder] = useState<Reminder[]>([]);
+    const [filteredReminder, setFilteredReminder] = useState<Reminder[]>([]);
+
+
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+
 
 
    // fetch all reminder data
-   const fetchAllReminderData = async() => {
+   const fetchAllReminderData = async(user:string) => {
+    
+    if (!ready) return;
+
     try {
         const response = await fetch(`${API_URL}/home/get_acknowlegment_details` , {
-            method:"GET",
-            headers:{},
+            method:"POST",
+            headers:{"Content-Type": "application/json"},
+            body:JSON.stringify({username:user})
         });
 
         console.log("response" , response);
@@ -56,6 +82,7 @@ function Reminder() {
 
         if(data.success){
             setAllReminder(data.data || []);
+            setFilteredReminder(data.data || []);
         }else{
             console.error("API Error.Unknown Error!");           
         }        
@@ -65,8 +92,19 @@ function Reminder() {
    };
 
    useEffect(()=>{
-    fetchAllReminderData();
-   },[])
+    if (!ready) return;
+    fetchAllReminderData(username);
+   },[username , ready])
+
+
+    const totalEntries = filteredReminder.length;
+    const totalPages = Math.ceil(totalEntries / entriesPerPage);
+
+    const startIndex = (currentPage - 1) * entriesPerPage;
+    const endIndex = startIndex + entriesPerPage;
+
+    const currentData = filteredReminder.slice(startIndex, endIndex);
+
 
 
    const validateform = ()=>{
@@ -104,7 +142,52 @@ function Reminder() {
     //setError(newError);
     return isValid
 
-   };     
+   };      
+
+
+   // search
+    const handleSearch = () => {
+        // if no filter applied, show all
+        if (!startDate && !endDate) {
+            setFilteredReminder(allReminder);
+            setCurrentPage(1);
+            return;
+        }
+
+        const filtered = allReminder.filter((item) => {
+            const reminderDate = item.reminder_date.split(" ")[0]; // YYYY-MM-DD
+
+            if (startDate && endDate) {
+                return reminderDate >= startDate && reminderDate <= endDate;
+            }
+
+            if (startDate) {
+                return reminderDate >= startDate;
+            }
+
+            if (endDate) {
+                return reminderDate <= endDate;
+            }
+
+            return true;
+        });
+
+        setFilteredReminder(filtered);
+        setCurrentPage(1);
+    };
+
+
+
+
+   // reset 
+    const handleReset = () => {
+        setStartDate("");
+        setEndDate("");
+        setFilteredReminder(allReminder);
+        setCurrentPage(1);
+    };
+
+
 
 
 
@@ -123,19 +206,29 @@ function Reminder() {
                 return
             }
 
+            if (!reminderFormData.description.trim()) {
+                setError("Description is Required!");
+                return
+            }
+
+            if (!reminderFormData.ack_no.trim()) {
+                setError("Acknowledge Number is Required!");
+                return
+            }
+
             if (!reminderFormData.reminder_date) {
                 setError("Reminder Date is Required!");
                 return
             }
 
             // Optional: Email format validation
-            if (
-                reminderFormData.email &&
-                !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(reminderFormData.email)
-            ) {
-                setError("Please enter a valid email address!")
-                return
-            }
+            // if (
+            //     reminderFormData.email &&
+            //     !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(reminderFormData.email)
+            // ) {
+            //     setError("Please enter a valid email address!")
+            //     return
+            // }
 
             console.log("Reminder Data:", reminderFormData);
 
@@ -171,6 +264,8 @@ function Reminder() {
                     title:"Successfully Added!",
                     description:"Successfully Added Your Reminder..."
                 });
+
+                fetchAllReminderData(username);
 
                 handleResetForm();
 
@@ -246,48 +341,89 @@ function Reminder() {
 
                       {/* Inputs */}
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                                                  
-                          <div>
+
+                          {/* <div>
                               <Label>Service Name</Label>
                               <Input placeholder="Service Name" />
+                          </div> */}
+
+                          <div>
+                              <Label>Start Date</Label>
+                              <Input
+                                  type="date"
+                                  value={startDate}
+                                  onChange={(e) => setStartDate(e.target.value)}
+                              />
                           </div>
 
                           <div>
-                              <Label>Event Date</Label>
-                              <Input type="date" />
+                              <Label>End Date</Label>
+                              <Input
+                                  type="date"
+                                  value={endDate}
+                                  onChange={(e) => setEndDate(e.target.value)}
+                              />
+                          </div>
+
+
+                          {/* Actions */}
+                          <div className="flex gap-3 mt-6">
+                              <Button variant='outline' onClick={handleSearch}>
+                                  <Search className="h-4 w-4" />
+                                  Search
+                              </Button>
+
+                              <Button variant="destructive" className="hover:bg-red-100 hover:text-red-700" onClick={handleReset}>
+                                  Reset
+                              </Button>
                           </div>
                       </div>
-                     
-
-                      {/* Actions */}
-                      <div className="flex gap-3 mt-6">
-                          <Button variant='outline'>
-                              <Search className="h-4 w-4" />
-                              Search
-                          </Button>
-
-                          <Button variant="destructive" className="hover:bg-red-100 hover:text-red-700">
-                              Reset
-                          </Button>
-                      </div>
+                      
                   </div>
               </div>
 
 
               {/* =============== add reminder section============== */}
 
-              <div className='mb-5 flex justify-end'>
-                <Button variant='hero' onClick={()=> setReminderModalOpen(true)}>
-                    <PlusCircleIcon/>
+              {username && (
+                  <div className='mb-5 flex justify-end'>
+                      <Button variant='hero' onClick={() => setReminderModalOpen(true)}>
+                          <PlusCircleIcon />
 
-                    Add Reminder
-                </Button>
+                          Add Reminder
+                      </Button>
 
-              </div>
+                  </div>
+              )}
 
               {/* ================= TABLE SECTION ================= */}
               <Card>
                   <CardContent className="p-0 overflow-x-auto">
+
+                      {/* Pagination entries */}
+                      <div className="flex items-center justify-between px-4 py-3">
+                          <div className="flex items-center gap-2 text-sm">
+                              <span>Show</span>
+
+                              <select
+                                  className="border rounded px-2 py-1"
+                                  value={entriesPerPage}
+                                  onChange={(e) => {
+                                      setEntriesPerPage(Number(e.target.value));
+                                      setCurrentPage(1); // reset page
+                                  }}
+                              >
+                                  {[5, 10, 25, 50].map((size) => (
+                                      <option key={size} value={size}>
+                                          {size}
+                                      </option>
+                                  ))}
+                              </select>
+
+                              <span>entries</span>
+                          </div>
+                      </div>
+
                       <table className="w-full text-sm">
                           <thead>
                               <tr className="border-b bg-muted/40">
@@ -295,11 +431,11 @@ function Reminder() {
                                       "Sl No.",
                                       "Acknowledgement No.",
                                       "Customer Name",
-                                      "Customer Phone",
-                                      "Service Name",
+                                      "Customer Email",
+                                      //"Service Name",
                                       "Event Date",
                                       "Description",
-                                      "Action",
+                                      //"Action",
                                   ].map((h) => (
                                       <th
                                           key={h}
@@ -312,28 +448,29 @@ function Reminder() {
                           </thead>
 
                           <tbody>
-                            { allReminder.length > 0 ? (
-                                allReminder.map((r, index) => (
+                            { currentData.length > 0 ? (
+                                currentData.map((r, index) => (
                                     <tr className="border-b hover:bg-muted/30 transition">
-                                  <td className="px-4 py-3">{index+1}</td>
-                                  <td className="px-4 py-3">ACK-1023</td>
-                                  <td className="px-4 py-3">John Doe</td>
-                                  <td className="px-4 py-3">9876543210</td>
-                                  <td className="px-4 py-3">License Service</td>
-                                  <td className="px-4 py-3">2 Days</td>
-                                  <td className="px-4 py-3">12 Jan 2026</td>                                 
-                                  <td className="px-4 py-3">
+                                  <td className="px-4 py-3">{startIndex+index+1}</td>
+
+                                  <td className="px-4 py-3">{r.ack_no || ""}</td>
+                                  <td className="px-4 py-3">{r.name || ""}</td>
+                                  <td className="px-4 py-3">{r.email || ""}</td>
+                                  {/* <td className="px-4 py-3">License Service</td> */}
+                                  <td className="px-4 py-3">{r.reminder_date.split(" ")[0] || ""}</td>
+                                  <td className="px-4 py-3">{r.description}</td>                                 
+                                  {/* <td className="px-4 py-3">
                                       <Button size="sm" variant="outline">View</Button>
-                                  </td>
+                                  </td> */}
                               </tr>
                                 ))
                             ) : (
                               <tr>
                                   <td
-                                      colSpan={8}
+                                      colSpan={6}
                                       className="py-12 text-center text-muted-foreground"
                                   >
-                                      No data available in table
+                                      No data available in reminder
                                   </td>
                               </tr>
                             )}
@@ -343,23 +480,42 @@ function Reminder() {
                       {/* Pagination */}
                       <div className="flex items-center justify-between px-4 py-3 border-t text-sm">
                           <span className="text-muted-foreground">
-                              Showing 0 to 0 of 0 entries
+                              Showing {totalEntries === 0 ? 0 : startIndex + 1} to{" "}
+                              {Math.min(endIndex, totalEntries)} of {totalEntries} entries
                           </span>
 
                           <div className="flex items-center gap-1">
-                              <Button size="icon" variant="outline" disabled>
+                              <Button
+                                  size="icon"
+                                  variant="outline"
+                                  disabled={currentPage === 1}
+                                  onClick={() => setCurrentPage((p) => p - 1)}
+                              >
                                   <ChevronLeft className="h-4 w-4" />
                               </Button>
 
-                              <Button size="sm" className="px-3">
-                                  1
-                              </Button>
+                              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                                  <Button
+                                      key={page}
+                                      size="sm"
+                                      variant={page === currentPage ? "default" : "outline"}
+                                      onClick={() => setCurrentPage(page)}
+                                  >
+                                      {page}
+                                  </Button>
+                              ))}
 
-                              <Button size="icon" variant="outline" disabled>
+                              <Button
+                                  size="icon"
+                                  variant="outline"
+                                  disabled={currentPage === totalPages || totalPages === 0}
+                                  onClick={() => setCurrentPage((p) => p + 1)}
+                              >
                                   <ChevronRight className="h-4 w-4" />
                               </Button>
                           </div>
                       </div>
+
                   </CardContent>
               </Card>
             </main>

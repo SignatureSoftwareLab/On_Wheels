@@ -43,17 +43,17 @@ const ALLOWED_PDF_EXTENSION = '.pdf';
 function ServiceApplication() {
 
   const { username , ready } = useUser();
-  console.log("username in form", username);
+  //console.log("username in form", username);
 
   const { serviceId } = useParams<{ serviceId: string }>();
-  console.log("serviceId", serviceId);
+  //console.log("serviceId", serviceId);
 
   const location = useLocation();
   const navigate = useNavigate();
 
   const service = location.state?.service || null;
 
-  console.log("the passed service details", service);
+  //console.log("the passed service details", service);
 
   // If service is not passed via navigation, show error
   // if (!service) {
@@ -321,9 +321,9 @@ function ServiceApplication() {
     setError("")
     setFileUploadError(null)
 
-    console.log('Form Data:', formData)
-    console.log('Uploaded Documents:', uploadedDocuments)
-    console.log('Uploaded PDF:', uploadedPDF)
+    //console.log('Form Data:', formData)
+    //console.log('Uploaded Documents:', uploadedDocuments)
+    //console.log('Uploaded PDF:', uploadedPDF)
     // Handle form submission here
 
 
@@ -436,7 +436,7 @@ function ServiceApplication() {
 
 
 
-      console.log("formDataToSend", formDataToSend);
+      //console.log("formDataToSend", formDataToSend);
 
 
       const response = await fetch(`${API_URL}/home/add_public_service_form`, {
@@ -444,7 +444,7 @@ function ServiceApplication() {
         body: formDataToSend
       });
 
-      console.log(response);
+      //console.log(response);
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -452,7 +452,7 @@ function ServiceApplication() {
       }
 
       const data = await response.json();
-      console.log("api result data", data);
+      //console.log("api result data", data);
 
       if (data.success) {
 
